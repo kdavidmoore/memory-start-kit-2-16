@@ -22,27 +22,46 @@ var cards = [
 	"<img src='img/default/monsters-16.png'>"
 ];
 
+function playAgain() {
+	$('#mg-contents').html('');
+	$('#mg-wrapper').removeClass('easy');
+	$('#mg-wrapper').removeClass('med');
+	$('#mg-wrapper').removeClass('hard');
+	$('#button-bucket').toggle();
+}
 
 $(document).ready(function(){
 
-	$('input').click(function(){
+	/* $('#play-again').click(function(){
+		$('#mg-contents').html('');
+		$('#mg-wrapper').removeClass('easy');
+		$('#mg-wrapper').removeClass('med');
+		$('#mg-wrapper').removeClass('hard');
+		$('#button-bucket').toggle();
+		$('#play-again').toggle();
+	}); */
+
+	$('.diff').click(function(){
 		var diff = $(this).val();
-		if(diff == 'easy'){
+		if (diff == 'easy'){
 			rowSize = 5;
 			gridSize = rowSize*2;
-		}else if(diff=="med"){
+			$('#mg-wrapper').addClass('easy');	
+		} else if(diff=="med"){
 			rowSize = 5;
 			gridSize = rowSize*4;
-		}else if(diff=="hard"){
+			$('#mg-wrapper').addClass('med');	
+		} else if(diff=="hard"){
 			rowSize = 7;
 			gridSize = rowSize*4;
+			$('#mg-wrapper').addClass('hard');
 		}
 		$('#button-bucket').toggle();
 		gameTiles = cards.slice(0,(gridSize/2));
 		gridArray = $.merge(gameTiles, gameTiles);
 
-
 		//shuffle here
+
 
 		//place here
 		for(i=0; i<gridArray.length; i++){
@@ -61,20 +80,34 @@ $(document).ready(function(){
 
 		$('.mg-tile').click(function(){
 			$(this).find('.mg-tile-inner').addClass('flipped');
+			if($('.flipped.unmatched').length == 2){
+				moves++;
+				var visibleCards = $('.flipped.unmatched img');
+				if(visibleCards[0].src == visibleCards[1].src){
+					// leave them flipped
+					// add matched
+					$('.flipped.unmatched').addClass('matched');
+					//remove unmatched
+					$('.flipped.unmatched').removeClass('unmatched');
+				}else{
+					// the user has flipped over 2 cards and they DO NOT match	
+					setTimeout(function(){
+						$('.flipped.unmatched').removeClass('flipped');	
+					},500);
+				}
+				if($('.flipped.matched').length == gridArray.length){
+					wins++;
+					var wantsToPlay = confirm('You matched them all! Play again?');
+					if (wantsToPlay === true){
+						playAgain();
+					}
+					// $('#play-again').toggle();
+				}
+			}else{
+				// only one card is flipped up
+			}
+			$('#move-counter').html(moves);
+			$('#wins-counter').html(wins);	
 		});
 	});
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 });

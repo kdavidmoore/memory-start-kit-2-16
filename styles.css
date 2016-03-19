@@ -1,3 +1,6 @@
+input[type="button"] {
+	border: none;
+}
 
 #mg-wrapper{
 	width: 100%;
@@ -6,12 +9,18 @@
 }
 
 .mg-tile{
-	width: 20%;
 	padding: 5px;
 	box-sizing: border-box;
 	float: left;
 	height: 200px;
 	perspective: 500px;	
+}
+
+.easy .mg-tile, .med .mg-tile{
+	width: 20%;
+}
+.hard .mg-tile{
+	width: 14.28%;
 }
 
 .mg-tile-inner{
@@ -50,25 +59,9 @@
 	transform: rotateY(180deg);
 }
 
-.unmatched{
-
-}
 .flipped{
 	transform: rotateY(-180deg);
 }
-/* 			var html = '<div class="mg-tile">';
-					html += '<div class="mg-tile-inner unmatched flipped">';
-						html += '<div class="mg-tile-outside"></div>';
-						html += '<div class="mg-tile-inside">' + gridArray[i]+'</div>';
- */
-
-
-
-
-
-
-
-
 
 #button-bucket, h1{
 	text-align: center;
@@ -88,18 +81,35 @@
 }
 
 #easy{
-	background-color: green;
+	background-color: #88cc88;
 }
 
 #med{
-	background-color: yellow;
+	background-color: #55aa55;
 }
 
 #hard{
-	background-color: red;
+	background-color: #004400;
+	color: white;
+}
+
+#replay-wrapper {
+	text-align: center;
+	margin: auto;
+}
+
+#play-again {
+	width: 20%;
+	font-size: 20px;
+	border-radius: 20px;
+	background-color: #550000;
+	color: white;
+}
+
+.hidden {
+	display: none;
 }
 
 img{
 	max-width: 100%;
 }
-
