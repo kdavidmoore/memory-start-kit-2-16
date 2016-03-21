@@ -13,7 +13,7 @@ input[type="button"] {
 	box-sizing: border-box;
 	float: left;
 	height: 200px;
-	perspective: 500px;	
+	perspective: 500px;
 }
 
 .easy .mg-tile, .med .mg-tile{

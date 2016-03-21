@@ -45,30 +45,37 @@ $(document).ready(function(){
 		var diff = $(this).val();
 		if (diff == 'easy'){
 			rowSize = 5;
-			gridSize = rowSize*2;
+			gridSize = rowSize * 2;
 			$('#mg-wrapper').addClass('easy');	
-		} else if(diff=="med"){
+		} else if(diff == 'med'){
 			rowSize = 5;
-			gridSize = rowSize*4;
+			gridSize = rowSize * 4;
 			$('#mg-wrapper').addClass('med');	
-		} else if(diff=="hard"){
+		} else if(diff == 'hard'){
 			rowSize = 7;
-			gridSize = rowSize*4;
+			gridSize = rowSize * 4;
 			$('#mg-wrapper').addClass('hard');
 		}
 		$('#button-bucket').toggle();
 		gameTiles = cards.slice(0,(gridSize/2));
 		gridArray = $.merge(gameTiles, gameTiles);
 
-		//shuffle here
+		// shuffle the card positions by generating two random card positions between zero and the grid size...
+        for(i=1; i<gridSize * 5; i++){
+            var pos1 = Math.floor(Math.random() * gridSize);
+            var pos2 = Math.floor(Math.random() * gridSize);
+            var tempCard = gridArray[pos1]; // create a temp card equal the first random monster
+            gridArray[pos1] = gridArray[pos2]; // make sure the two cards contain the same monster image
+            gridArray[pos2] = tempCard;
+        }
+        console.dir(gridArray);
 
-
-		//place here
+		// place cards in the grid
 		for(i=0; i<gridArray.length; i++){
 			var html = '<div class="mg-tile">';
 					html += '<div class="mg-tile-inner unmatched flipped">';
 						html += '<div class="mg-tile-outside"></div>';
-						html += '<div class="mg-tile-inside">' + gridArray[i]+'</div>';
+						html += '<div class="mg-tile-inside">' + gridArray[i] + '</div>';
 					html += '</div>';
 				html += '</div>';
 			$('#mg-contents').append(html);
